@@ -10,7 +10,5 @@
   "license": "ISC",
   "dependencies": {
     "kue": "^0.11.5",
-    "node-zip": "^1.1.1",
-    "rimraf": "^2.5.4"
   }
 }

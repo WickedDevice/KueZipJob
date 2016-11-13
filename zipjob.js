@@ -1,9 +1,21 @@
 var kue = require('kue')
   , queue = kue.createQueue();
 
-queue.process('zip', (job, done) => {
+var exec = require('child_process').exec;
 
-  done();
+queue.process('zip', (job, done) => {
+  let input_filenames = job.data.serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
+  let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
+
+  let cmd = `zip ${output_filename} ${input_filenames}`;
+  
+  exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+      done(error);
+    }
+    else{
+      done();
+    }
 });
 
 process.once( 'uncaughtException', function(err){
