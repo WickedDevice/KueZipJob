@@ -4,10 +4,11 @@ var kue = require('kue')
 var exec = require('child_process').exec;
 
 queue.process('zip', (job, done) => {
-  let input_filenames = job.data.serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
+  let input_filenames = job.data.original_serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
   let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
 
-  let cmd = `zip ${output_filename} ${input_filenames}`;
+  // -j = --junk-paths, makes it so the zipped files are flattened to the root of the zip
+  let cmd = `zip -j ${output_filename} ${input_filenames}`;
   
   exec(cmd, (error, stdout, stderr) => {
     if (error) {
