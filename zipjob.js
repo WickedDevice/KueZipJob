@@ -16,6 +16,7 @@ queue.process('zip', (job, done) => {
     else{
       done();
     }
+  });
 });
 
 process.once( 'uncaughtException', function(err){
