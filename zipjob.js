@@ -31,7 +31,25 @@ queue.process('zip', (job, done) => {
         done(error);
       }
       else{
-        done();
+        try{
+          let job2 = queue.create('email', {
+            title: 'Emailing user ' + job.data.email
+            , save_path: job.data.save_path
+            , original_serials: job.data.original_serials.slice()
+            , serials: job.data.serials.slice()
+            , user_id: job.data.user_id
+            , email: job.data.email
+            , zipfilename: job.data.zipfilename
+          })
+          .priority('high')
+          .attempts(1)
+          .save();
+
+          done();
+        } 
+        catch(e){
+          done(e);
+        }
       }
     }
   });
