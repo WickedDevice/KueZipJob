@@ -6,7 +6,7 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 
 queue.process('zip', (job, done) => {
-  let input_filenames = job.data.original_serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
+  let input_filenames = `${job.data.save_path}/\*.csv`; // job.data.original_serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
   let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
 
   // -j = --junk-paths, makes it so the zipped files are flattened to the root of the zip
