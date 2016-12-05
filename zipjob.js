@@ -36,6 +36,7 @@ queue.process('zip', (job, done) => {
             title: 'Emailing user ' + job.data.email
             , save_path: job.data.save_path
             , original_serials: job.data.original_serials.slice()
+            , original_url: job.data.original_url
             , serials: job.data.serials.slice()
             , user_id: job.data.user_id
             , email: job.data.email
