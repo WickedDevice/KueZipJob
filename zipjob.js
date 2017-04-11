@@ -16,6 +16,7 @@ let generateNextJob = (job, done) => {
       , user_id: job.data.user_id
       , email: job.data.email
       , zipfilename: job.data.zipfilename
+      , bypassjobs: job.bypassjobs ? job.bypassjobs.slice() : []
     })
     .priority('high')
     .attempts(1)
@@ -30,7 +31,7 @@ let generateNextJob = (job, done) => {
 
 queue.process('zip', (job, done) => {
 
-  let skipJob = job.data.bypass && (job.data.bypass.indexOf('zip') >= 0);
+  let skipJob = job.data.bypassjobs && (job.data.bypassjobs.indexOf('zip') >= 0);
 
   let input_filenames = `${job.data.save_path}/\*.csv`; // job.data.original_serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
   let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
