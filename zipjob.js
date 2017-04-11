@@ -16,7 +16,7 @@ let generateNextJob = (job, done) => {
       , user_id: job.data.user_id
       , email: job.data.email
       , zipfilename: job.data.zipfilename
-      , bypassjobs: job.bypassjobs ? job.bypassjobs.slice() : []
+      , bypassjobs: job.data.bypassjobs ? job.data.bypassjobs.slice() : []
     })
     .priority('high')
     .attempts(1)
