@@ -6,6 +6,7 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 
 let generateNextJob = (job, done) => {
+  console.log(JSON.stringify(job.data, null, 2));
   try{
     let job2 = queue.create('email', {
       title: 'Emailing user ' + job.data.email
