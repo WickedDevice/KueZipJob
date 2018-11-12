@@ -6,7 +6,6 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 
 let generateNextJob = (job, done) => {
-  console.log(JSON.stringify(job.data, null, 2));
   try{
     let job2 = queue.create('email', {
       title: 'Emailing user ' + job.data.email
@@ -31,8 +30,11 @@ let generateNextJob = (job, done) => {
 }
 
 queue.process('zip', (job, done) => {
-
   let skipJob = job.data.bypassjobs && (job.data.bypassjobs.indexOf('zip') >= 0);
+  
+  if(!skipJob) {
+    console.log(JSON.stringify(job.data, null, 2));
+  }
 
   let input_filenames = `${job.data.save_path}/\*.csv`; // job.data.original_serials.map( serial => `${job.data.save_path}/${serial}.csv` ).join(' ');
   let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
