@@ -1,5 +1,7 @@
-var kue = require('kue')
-  , queue = kue.createQueue();
+//jshint esversion: 6
+
+var kue = require('kue');
+var queue = kue.createQueue();
 
 var exec = require('child_process').exec;
 var rimraf = require('rimraf');
@@ -20,6 +22,7 @@ let generateNextJob = (job, done) => {
     })
     .priority('high')
     .attempts(1)
+    .removeOnComplete( true )
     .save();
 
     done();
@@ -31,7 +34,7 @@ let generateNextJob = (job, done) => {
 
 queue.process('zip', (job, done) => {
   let skipJob = job.data.bypassjobs && (job.data.bypassjobs.indexOf('zip') >= 0);
-  
+
   if(!skipJob) {
     console.log(JSON.stringify(job.data, null, 2));
   }
