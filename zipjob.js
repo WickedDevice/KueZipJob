@@ -43,7 +43,7 @@ queue.process('zip', (job, done) => {
   let output_filename = `${job.data.save_path}/${job.data.zipfilename}`;
 
   // -j = --junk-paths, makes it so the zipped files are flattened to the root of the zip
-  let cmd = `zip -j ${output_filename} ${input_filenames}`;
+  let cmd = `zip -j "${output_filename}" "${input_filenames}"`;
   // console.log(cmd);
 
   if(skipJob){
