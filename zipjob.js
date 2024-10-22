@@ -15,6 +15,8 @@ let generateNextJob = (job, done) => {
       , original_serials: job.data.original_serials.slice()
       , original_url: job.data.original_url
       , serials: job.data.serials.slice()
+      , aliases: job.data.aliases || {}
+      , shortCodes: job.data.shortCodes || {}
       , user_id: job.data.user_id
       , email: job.data.email
       , zipfilename: job.data.zipfilename
